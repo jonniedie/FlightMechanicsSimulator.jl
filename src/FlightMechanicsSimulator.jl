@@ -4,6 +4,7 @@ using DataFrames
 using NLsolve
 using OrdinaryDiffEq
 using StaticArrays
+using SimulationLogs
 
 using FlightMechanicsUtils
 
