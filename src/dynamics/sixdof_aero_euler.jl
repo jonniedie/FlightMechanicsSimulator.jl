@@ -110,28 +110,28 @@ function sixdof_aero_earth_euler_fixed_mass!(
     # C     x(12) -> Altitude (m)
 
     # Assign state
-    tas = x[1]
-    α = x[2]
-    β = x[3]
-    ϕ = x[4]
-    θ = x[5]
-    ψ = x[6]
-    p = x[7]
-    q = x[8]
-    r = x[9]
+    @log tas = x[1]
+    @log α = x[2]
+    @log β = x[3]
+    @log ϕ = x[4]
+    @log θ = x[5]
+    @log ψ = x[6]
+    @log p = x[7]
+    @log q = x[8]
+    @log r = x[9]
 
     # Unpack forces
-    Fx, Fy, Fz = forces
+    @log Fx, Fy, Fz = forces
     # Unpack moments
-    L, M, N = moments
+    @log L, M, N = moments
     # Unpack angular momentum contributions
-    hx, hy, hz = h
+    @log hx, hy, hz = h
     # Unpack inertia
     Ixx, Iyy, Izz = inertia[1, 1], inertia[2, 2], inertia[3, 3]
     Ixz = inertia[1, 3]
 
     # Get ready for state equations
-    u, v, w = wind2body(tas, 0, 0, α, β)
+    @log u, v, w = wind2body(tas, 0, 0, α, β)
 
     sψ, cψ = sin(ψ), cos(ψ)
     sθ, cθ = sin(θ), cos(θ)
