@@ -5,7 +5,17 @@
     )
 
 """
-function simulate(tini, tfin, dss, controls, aircraft, atmosphere, gravity;
+function simulate(tini, tfin, dss, args...; kwargs...)
+
+    sol = _simulate(tini, tfin, dss, args...; solver, solve_args)
+
+    df = DataFrame(sol')
+    rename!(df, get_x_names(dss))
+    df[!, :time] = sol.t
+
+    return df
+end
+function _simulate(tini, tfin, dss, controls, aircraft, atmosphere, gravity;
     solver=Tsit5(), solve_args=Dict()
     )
 
@@ -14,13 +24,7 @@ function simulate(tini, tfin, dss, controls, aircraft, atmosphere, gravity;
 
     x0 = get_x(dss)
     prob = ODEProblem{false}(f, x0, tspan, p)
-    sol = solve(prob, solver; solve_args...)
-
-    df = DataFrame(sol')
-    rename!(df, get_x_names(dss))
-    df[!, :time] = sol.t
-
-    return df
+    return solve(prob, solver; solve_args...)
 end
 
 
